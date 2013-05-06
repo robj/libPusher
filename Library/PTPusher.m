@@ -110,6 +110,17 @@ NSURL *PTPusherConnectionURL(NSString *host, NSString *key, NSString *clientID, 
   return pusher;
 }
 
+
++ (id)pusherWithKeyAndHost:(NSString *)key connectAutomatically:(BOOL)connectAutomatically encrypted:(BOOL)isEncrypted (NSString *)host
+{
+  NSURL *serviceURL = PTPusherConnectionURL(host, key, @"libPusher", isEncrypted);
+  PTPusherConnection *connection = [[PTPusherConnection alloc] initWithURL:serviceURL];
+  PTPusher *pusher = [[self alloc] initWithConnection:connection connectAutomatically:connectAutomatically];
+  return pusher;
+}
+
+
+
 - (void)dealloc;
 {
   [_connection setDelegate:nil];
